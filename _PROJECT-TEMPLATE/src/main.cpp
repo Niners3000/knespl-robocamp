@@ -1,5 +1,5 @@
 #include "robotka.h"
-
+// ahoj
 // Funkce setup se zavolá vždy po startu robota.
 void setup() {
     rkConfig cfg;

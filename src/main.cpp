@@ -1,6 +1,20 @@
 #include "robotka.h"
 // ahoj
 // Funkce setup se zavolá vždy po startu robota.
+void turnLeft() {
+        rkMotorsSetSpeed(100, 50);
+        delay(750);
+        rkMotorsSetSpeed(0, 0);
+    }
+    void turnRight() {
+        rkMotorsSetSpeed(50, 100);
+        delay(750);
+        rkMotorsSetSpeed(0, 0);
+    }
+void keepDistance(){
+    
+}
+
 void setup() {
     rkConfig cfg;
 
@@ -10,7 +24,7 @@ void setup() {
     // cfg.motor_max_power_pct = 30; // limit výkonu motorů na 30%
     rkSetup(cfg);
 
-    int lBlack = 2911;
+    /*int lBlack = 2911;
     int rBlack = 2765;
 
     int black = 2000;
@@ -66,9 +80,9 @@ void setup() {
                     rkMotorsSetSpeed(100, 40);
                 } 
             }
-        }
+        }*/
 
-        /*if (distanceFront <= 150)
+    /*if (distanceFront <= 150)
         {
             rkMotorsSetSpeed(-50, 50); //look left
             delay(200);
@@ -120,40 +134,23 @@ void setup() {
             }
             
         }*/
-        
-        
-        /*if (rkIrLeft() >= leftBlack) {
-            rkMotorsSetSpeed(50, 25);
-            delay(10);
-            rkMotorsSetSpeed(50, 50);
-        } else if (rkIrLeft() >= rightBlack) {
-            rkMotorsSetSpeed(25, 50);
-            delay(10);
-            rkMotorsSetSpeed(50, 50);
-        } else {
-            rkMotorsSetSpeed(50, 50);
-        }*/
+    int distanceLeft;
+    int distanceFront;
 
+    rkUltraMeasureAsync(1, [&](uint32_t distance_mm) {
+        distanceFront = distance_mm;
+        return true;
+    });
+    rkUltraMeasureAsync(2, [&](uint32_t distance_mm) {
+        distanceLeft = distance_mm;
+        return true;
+    });
+
+    while (rkButtonOn(true) == false) {
     }
 
-    /*
-    int i = 0;
-    int averageRight = rkIrRight();
-    int averageLeft = rkIrLeft();
-    int Left;
-    int Right;
-
-    while (i < 400) {
-        Left = rkIrLeft();
-        Right = rkIrRight();
-
-        fmt::print("Left InfraRed: {}\n", Left);
-        fmt::print("Right InfraRed: {}\n", Right);
-        delay(30);
-        i++;
-        averageLeft = (averageLeft + Left) / 2;
-        averageRight = (averageRight + Right) / 2;
+    while (true) {
+        turnRight();
+        delay(1000);
     }
-    fmt::print("Left average: {}\n", averageLeft);
-    fmt::print("Right average: {}\n", averageRight);*/
 }

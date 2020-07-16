@@ -35,21 +35,21 @@ void setup() {
         distanceLeft = distance_mm;
         return true;
     });
-    while(rkButtonDown(true) == false){
+    while(rkButtonOn(true) == false){
     }
-    while (true) {
+    while (rkButtonOn() == false) {
         
-        while(rkIrLeft() >= black){
+        while(rkIrLeft() >= black && rkIrRight() < black){
             lastState = 0;
-            rkMotorsSetSpeed(100, 85);
+            rkMotorsSetSpeed(100, 75);
             //delay(10);
         }
-        while(rkIrRight() >= black){
+        while(rkIrRight() >= black && rkIrLeft() < black){
             lastState = 1;
-            rkMotorsSetSpeed(85, 100);
+            rkMotorsSetSpeed(75, 100);
             //delay(10);
         }
-        if(rkIrRight() <= black && rkIrLeft() <= black){
+        if(rkIrRight() < black && rkIrLeft() < black){
             rkMotorsSetSpeed(100,100);
         }
         if(rkIrRight() <= white && rkIrLeft() <= white){
